@@ -81,33 +81,29 @@ $(document).on("click", ".js-submit", function (e) {
     });
 })
 $(document).on("click", ".js-follow", function (e) {
-    e.preventDefault();
-    const action = $(this).attr("data-action")
-    console.log("clicked");
-    $.ajax({
-        url: $(this).data("url"),
-        type: "POST",
-        data: {
-            action: action,
-            username: $(this).data("username"),
-        },
-        success: (data) => {
-            console.log(data);
-            $(".js-follow-text").text(data.wording)
-            if (action == "follow") {
-                //Change wording to unfollow
-                $(this).attr("data-action", "unfollow");
-            }
-            else {
-                //Change wording to follow
-                $(this).attr("data-action", "follow");
-            }
-        },
-        error: function (error) {
-            console.warn(error);
-            $btn.prop("disabled", false).text("Error");
-        },
+        e.preventDefault();
+        const $btn = $(this);
+        const action = $btn.data("action");
+
+        $.ajax({
+            url: $btn.data("url"),
+            type: "POST",
+            data: {
+                action: action,
+                username: $btn.data("username"),
+            },
+            success: (data) => {
+                // 1️⃣ Update button text & data-action
+                $btn.find(".js-follow-text").text(data.wording);
+                $btn.data("action", data.wording.toLowerCase() === "unfollow" ? "unfollow" : "follow");
+                $btn.toggleClass("bg-blue-500 hover:bg-blue-600 bg-red-500 hover:bg-red-600");
+
+                // 2️⃣ Update the follower count on the page
+                $(".js-total-followers").text(data.total_followers);
+            },
+            error: (err) => {
+                console.warn(err);
+            },
+        });
     });
-    
-    })
 });

@@ -1,0 +1,41 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Log In" %}{% endblock %}
+{% block heading %}{% trans "Log In" %}{% endblock %}
+
+{% block form %}
+  <form method="post" action="{% url 'account_login' %}" class="space-y-4">
+    {% csrf_token %}
+    {# Loop only the visible fields (login, password, maybe remember) #}
+    {% for field in form.visible_fields %}
+      <div>
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <p class="text-red-500 text-sm mt-1">{{ field.errors|striptags }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    {# Your custom submit button #}
+    <button type="submit"
+            class="w-full py-2 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+      {% trans "Log In" %}
+    </button>
+  </form>
+{% endblock %}
+
+{% block secondary_links %}
+  <p class="text-center text-sm text-gray-500">
+    <a href="{% url 'account_reset_password' %}" class="hover:underline">
+      {% trans "Forgot your password?" %}
+    </a>
+  </p>
+  <p class="text-center text-sm text-gray-500">
+    {% trans "Don’t have an account?" %}
+    <a href="{% url 'account_signup' %}" class="text-indigo-600 hover:underline">
+      {% trans "Sign up" %}
+    </a>
+  </p>
+{% endblock %}

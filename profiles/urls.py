@@ -1,9 +1,12 @@
 from django.urls import path
-from . import views
+from .views import ProfileDetailView, FollowView, EditProfileView
 
-app_name = "profiles"
+
+app_name = 'profiles'
 
 urlpatterns = [
-    path('<str:username>/', views.ProfileDetailView.as_view(), name='detail'),
-    path('<str:username>/follow/', views.FollowView.as_view(), name='follow'),
+    path('profile/<str:username>/edit/', EditProfileView.as_view(), name='edit_profile'),
+    path('<str:username>/follow/', FollowView.as_view(), name='follow'),
+    path('<str:username>/', ProfileDetailView.as_view(), name='detail'),
 ]
+
