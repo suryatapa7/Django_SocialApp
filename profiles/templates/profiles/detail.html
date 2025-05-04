@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+ {% load thumbnail %}
+
+{% block title %} {{ user.username }} {% endblock title %}
+
+{% block body %}
+    <!-- component -->
+<div class="rounded-3xl overflow-hidden shadow-xl max-w-xs my-3 bg-gray-400">
+  	<img src="https://img.freepik.com/free-vector/gray-geometric-frame-gray-background_53876-114490.jpg?ga=GA1.1.1746188978.1723706926&semt=ais_hybrid&w=740" class="w-full" />
+    <div class="flex justify-center -mt-8">
+        {% thumbnail user.profile.image "100x100" crop="center" as im %}
+            <img class="rounded-full border-solid border-white border-2 -mt-3" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}		
+    </div>
+	<div class="text-center px-3 pb-6 pt-2">
+		<h3 class="text-white text-sm bold font-sans">{{ user.username }}</h3>
+    {% if request.user.is_authenticated %}
+      {% if request.user != user %}
+        <div class="my-3">
+          <button class="text-teal-500 bg-teal-100 border border-solid border-teal-500 
+            hover:bg-teal-500 hover:text-white active:bg-teal-600 
+            font-bold uppercase text-xs px-4 py-2 rounded-full outline-none 
+            focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 js-follow" data-username="{{ user.username}}"data-action="{% if you_follow %}unfollow{% else %}follow{% endif %}" data-url="{% url 'profiles:follow' user.username %}"type="button">
+            <span class="mr-2 js-follow-text">
+              {% if you_follow %}
+                Unfollow
+              {% else %}
+                Follow 
+              {% endif %}  
+            </span>
+          </button>
+        </div>
+      {% endif %}
+    {% else %}
+     <div class="my-3 text-sm">Login to follow this user</div>
+    {% endif %}
+	</div>
+  	<div class="flex justify-center pb-3 text-white">
+      <div class="text-center mr-3 border-r pr-3">
+        <h2>{{ total_posts }}</h2>
+        <span>Posts</span>
+      </div>
+      <div class="text-center">
+        <h2>{{ total_followers }}</h2>
+        <span>Followers</span>
+      </div>
+  	</div>
+</div>
+{% endblock body %}

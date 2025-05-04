@@ -1,0 +1,58 @@
+
+#pip install pipenv
+#pipenv
+#pipenv install
+#pipenv shell
+
+or if pipenv have already installed:-
+#pip show pipenv
+
+to install pipfile.lock(outside the virtual environment)
+#pipenv install Django
+
+#inside the virtual env
+#pip install Django
+#pip show Django
+
+#To exit the program
+#exit
+#deactivate
+
+
+#to remove virtual environment
+#pipenv --rm
+
+#pipenv install --python 3.7
+
+
+#inside the virtual env
+#django-admin startproject til . (til means today i learn)
+#python manage.py runserver 0.0.0.0:8000
+#python manage.py migrate
+
+
+#create username and password
+#python manage.py createsuperuser
+
+
+**********Creating a new Django App***************
+python manage.py startapp feed
+after changes in the til/settings.py file i.e. after editing INSTALLED_APPS with 'feeds' and in the feed file making the following the changes:
+# Create your models here.
+class Post(models.Model):
+    text = models.CharField(max_length=240)
+
+python manage.py makemigrations
+python manage.py migrate
+
+******sorl-thumbnail for image***********
+pip install sorl-thumbnail
+pip show sorl-thumbnail
+
+
+***** after adding static files like javascript*****
+#python manage.py collectstatic
+
+***everytime after modifying the js file***
+#python manage.py collectstatic --no-input
+
