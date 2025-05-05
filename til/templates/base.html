@@ -11,9 +11,14 @@
 </head>
 <body>
 
+<!-- Hamburger menu button for small screens -->
+<button id="sidebarToggle" class="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md text-gray-500 bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500">
+  <i class='bx bx-menu text-3xl'></i>
+</button>
 
 <div class="min-h-screen flex flex-row bg-gray-100">
-  <div class="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden">
+  <div id="sidebar" class="flex flex-col w-56 bg-white rounded-r-3xl overflow-hidden fixed md:relative inset-y-0 left-0 
+    transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-40 md:z-auto">
     <div class="flex items-center justify-center h-20 shadow-md">
       <h1 class="text-3xl uppercase text-indigo-500">TIL</h1>
     </div>
@@ -57,7 +62,7 @@
         {% endif %}
     </ul>
   </div>
-  <div class="p-16">
+  <div class="flex-1 p-16 md:ml-56">
     {% block body %}
       {% block content %}{% endblock %}
     {% endblock %} 
@@ -92,43 +97,7 @@
   <!-- MODAL CODE END -->
 {% endif %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {% comment %} This is from base.html <br/>
-    {% block body %}
-    {% endblock %} {% endcomment %}
-
-    {% comment %} <a href='/'>Home</a>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'account_logout' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'account_login' %}">Login</a>
-    {% endif %}
-    <hr>
-    {% block body %}
-       {% block content %}{% endblock %}
-    {% endblock %} {% endcomment %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+      <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

@@ -46,6 +46,11 @@ $(document).ready(function () {
             $(this).removeClass('flex').addClass('hidden');
         }
     });
+
+    // Sidebar toggle for small screens
+    $('#sidebarToggle').click(function () {
+        $('#sidebar').toggleClass('-translate-x-full');
+    });
 });
 
 //create post
@@ -105,5 +110,7 @@ $(document).on("click", ".js-follow", function (e) {
                 console.warn(err);
             },
         });
-    });
 });
+   
+});
+
